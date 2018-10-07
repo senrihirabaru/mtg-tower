@@ -1,22 +1,42 @@
 var player;
 
 $(document).ready(function(){
-  socket.emit('requestLoginStatus');
   $(window).on("beforeunload",function(e){
     socket.emit('logout', {id: player.id});
   });
 });
 
+$('#setDysplayName a').on('click', function(event){
+  $form = $('#dysplayName');
+  $button = $('#setDysplayName a');
+  if($button.text() === 'Set'){
+    if($form.val() !== ''){
+      if(!$form.prop('clicked')){
+        socket.emit('requestLoginStatus');
+      }
+      $form.prop('clicked', true);
+      $form.prop('disabled', true);
+      $button.text('Modify');
+      $button.addClass('orange');
+    }
+  }else{
+    $button.text('Set');
+    $button.removeClass('orange');
+    $form.prop('disabled', false);
+  }
+})
+
 $('.player-select').on('click', function(event){
-  playerId = $(event.currentTarget).parent().parent().find('.card-title').text();
+  let dysplayName = $('#dysplayName').val();
+  let playerId = $(event.currentTarget).parent().parent().find('.card-title').text();
   $(event.currentTarget).addClass('disabled');
   if(!player){
-    socket.emit('login', {id: playerId, dysplayName: playerId});
+    socket.emit('login', {id: playerId, dysplayName: dysplayName});
   }else if(player.id !== playerId){
     let $button = $('span.card-title:contains(' + player.id + ')').parent().parent().find('a');
     $button.addClass('disabled');
     socket.emit('logout', {id: player.id});
-    socket.emit('login', {id: playerId, dysplayName: playerId});
+    socket.emit('login', {id: playerId, dysplayName: dysplayName});
   }else{
     socket.emit('logout', {id: playerId});
   }
