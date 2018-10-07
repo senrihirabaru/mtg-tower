@@ -38,4 +38,38 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+class Player {
+  constructor(id){
+    this.id = id;
+    this.dysplayName = '';
+    this.loggedIn = false;
+  }
+
+  set name(name){
+    this.dysplayName = name;
+  }
+
+  login(){
+    if(loggeIn || this.displayName === ''){
+      return false;
+    }
+    this.loggedIn = true;
+    return true;
+  }
+
+  logout(){
+    this.dysplayName = '';
+    this.loggedIn = false;
+  }
+}
+
+var player = {
+  'Player 1':new Player('Player 1'),
+  'Player 2':new Player('Player 2'),
+  'Player 3':new Player('Player 3'),
+  'Player 4':new Player('Player 4')
+}
+
+app.player = player;
+
 module.exports = app;

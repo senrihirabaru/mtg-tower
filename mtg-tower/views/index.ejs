@@ -9,6 +9,9 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="/stylesheets/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/stylesheets/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <!-- Scripts  -->
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
@@ -36,7 +39,7 @@
               <span class="card-title">Player 3</span>
             </div>
             <div class="card-action">
-              <a href="#" class="btn waves-effect waves-light orange">Select</a>
+              <a href="#" class="player-select btn waves-effect waves-light orange disabled">Select</a>
             </div>
           </div>
         </div>
@@ -50,7 +53,7 @@
               <span class="card-title">Player 2</span>
             </div>
             <div class="card-action">
-              <a href="#" class="btn waves-effect waves-light orange">Select</a>
+              <a href="#" class="player-select btn waves-effect waves-light orange disabled">Select</a>
             </div>
           </div>
         </div>
@@ -62,7 +65,7 @@
               <span class="card-title">Player 4</span>
             </div>
             <div class="card-action">
-              <a href="#" class="btn waves-effect waves-light orange">Select</a>
+              <a href="#" class="player-select btn waves-effect waves-light orange disabled">Select</a>
             </div>
           </div>
         </div>
@@ -76,7 +79,7 @@
               <span class="card-title">Player 1</span>
             </div>
             <div class="card-action">
-              <a href="#" class="btn waves-effect waves-light orange">Select</a>
+              <a href="#" class="player-select btn waves-effect waves-light orange disabled">Select</a>
             </div>
           </div>
         </div>
@@ -173,11 +176,15 @@
     </div>
   </footer>
 
-
   <!--  Scripts-->
+  <script>
+    var socket = io();
+  </script>
+
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/javascripts/materialize.js"></script>
   <script src="/javascripts/init.js"></script>
+  <script src="/javascripts/loginLogout.js"></script>
 
   </body>
 </html>
