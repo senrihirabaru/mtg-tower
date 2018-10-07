@@ -1,14 +1,13 @@
 FROM node:8
 
-#COPY ./src/ /usr/app/mtg/
-#COPY ./package.json /usr/app/mtg/
-
-#WORKDIR /usr/app/mtg
-#RUN npm install
+COPY ./mtg-tower/package.json /usr/app/mtg-tower/
 
 WORKDIR /usr/app/mtg-tower
+RUN npm install
 
-EXPOSE 8888
+WORKDIR /usr/app/mtg-tower/src
 
-#CMD ["node", "index.js"]
+EXPOSE 3000
+
+#ENTRYPOINT ["node", "index.js"]
 CMD bash
