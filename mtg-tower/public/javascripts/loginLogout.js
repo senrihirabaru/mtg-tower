@@ -10,14 +10,14 @@ $(document).ready(function(){
 });
 
 $('#setDysplayName a').on('click', function(event){
-  $form = $('#dysplayName');
-  $button = $('#setDysplayName a');
+  let $form = $('#dysplayName');
+  let $button = $('#setDysplayName a');
   if($button.text() === 'Set'){
     if($form.val() !== ''){
-      if(!$form.prop('clicked')){
+      if(!$button.attr('clicked')){
         socket.emit('requestLoginStatus');
       }
-      $form.prop('clicked', true);
+      $button.attr('clicked', true);
       $form.prop('disabled', true);
       $button.text('Modify');
       $button.addClass('orange');
@@ -88,7 +88,9 @@ socket.on('updateLoginStatus', function(players){
         $button.addClass('disabled');
         $button.text(players[id].dysplayName);
       }else{
-        $button.removeClass('disabled');
+        if($('#setDysplayName a').attr('clicked')){
+          $button.removeClass('disabled');
+        }
         $button.text('SELECT');
       }
     }
