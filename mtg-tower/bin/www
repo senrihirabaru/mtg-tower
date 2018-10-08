@@ -117,7 +117,7 @@ io.sockets.on('connection', function (socket) {
         player = app.player[message.id]
         if(player.loggedIn){
           io.to(socket.id).emit('login', false)　//特定のユーザーのみ（socket.idで送信元のみに送信）
-	}
+        }
         player.loggedIn = true;
         player.dysplayName = message.dysplayName;
         io.to(socket.id).emit('login', player)　//特定のユーザーのみ（socket.idで送信元のみに送信）
@@ -132,5 +132,17 @@ io.sockets.on('connection', function (socket) {
     })
     socket.on('requestLoginStatus', function (message) {
         io.to(socket.id).emit('updateLoginStatus', app.player)　//送信元以外の全員に送信
+    })
+    socket.on('requestPlayerInfo', function () {
+        console.log('requestPlayerInfo recieved.');
+        let player = app.player;
+        let playerInfo = {};
+        for(var key in app.player){
+          let p = app.player[key];
+          playerInfo[key] = {id: p.id, dysplayName: p.dysplayName, icon: p.icon};
+        }
+
+        io.to(socket.id).emit('replyPlayerInfo', playerInfo)
+        console.log('replyPlayerInfo sent.');
     })
 })

@@ -1,8 +1,11 @@
 var player;
+var gameStarting = false;
 
 $(document).ready(function(){
   $(window).on("beforeunload",function(e){
-    socket.emit('logout', {id: player.id});
+    if(!gameStarting){
+      socket.emit('logout', {id: player.id});
+    }
   });
 });
 
@@ -44,31 +47,37 @@ $('.player-select').on('click', function(event){
 
 socket.on('login', function(message){
   if(message){
+    // プレーヤーを選択済みの場合、ボタンを未選択状態に戻す
     if(player){
       let $button = $('span.card-title:contains(' + player.id + ')').parent().parent().find('a');
       $button.removeClass('disabled');
       $button.addClass('orange');
       $button.text('SELECT');
     }
+    // ボタンを選択状態にする
     player = message;
-    console.log('logged in.')
-    console.log('dysplayName = ' + player.dysplayName)
     let $button = $('span.card-title:contains(' + player.id + ')').parent().parent().find('a');
     $button.removeClass('disabled');
     $button.removeClass('orange');
     $button.text(player.dysplayName);
+    // STARTボタンを有効化する
+    $('#startGame').removeClass('disabled');
   }
 })
 
 socket.on('logout', function(message){
   let $button = $('span.card-title:contains(' + player.id + ')').parent().parent().find('a');
+  // ログアウトできたらボタンを未選択状態に戻す
   if(message){
     $button.addClass('orange');
     $button.text('SELECT');
     player = '';
     console.log('logged out.')
   }
+  // ボタンの無効化を解除する
   $button.removeClass('disabled');
+  // STARTボタンを無効化する
+  $('#startGame').addClass('disabled');
 })
 
 socket.on('updateLoginStatus', function(players){
@@ -86,4 +95,36 @@ socket.on('updateLoginStatus', function(players){
   }
 })
 
+$('#startGame').on('click', function(event){
+  gameStarting = true;
+  localStorage.setItem('player', JSON.stringify(player))
+  execPost('/main', {});
+  //execPost('/main', {id: player.id});
+})
+
+/**
+* データをPOSTする
+* @param String アクション
+* @param Object POSTデータ連想配列
+*/
+function execPost(action, data) {
+  // フォームの生成
+  var form = document.createElement("form");
+  form.setAttribute("action", action);
+  form.setAttribute("method", "post");
+  form.style.display = "none";
+  document.body.appendChild(form);
+  // パラメタの設定
+  if (data !== undefined) {
+    for (var paramName in data) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', paramName);
+      input.setAttribute('value', data[paramName]);
+      form.appendChild(input);
+    }
+  }
+  // submit
+  form.submit();
+}
 

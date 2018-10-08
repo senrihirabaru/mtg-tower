@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var mainRouter = require('./routes/main');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/main', mainRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -39,10 +41,11 @@ app.use(function(err, req, res, next) {
 });
 
 class Player {
-  constructor(id){
+  constructor(id, icon){
     this.id = id;
     this.dysplayName = '';
     this.loggedIn = false;
+    this.icon = icon;
   }
 
   set name(name){
@@ -64,10 +67,10 @@ class Player {
 }
 
 var player = {
-  'Player 1':new Player('Player 1'),
-  'Player 2':new Player('Player 2'),
-  'Player 3':new Player('Player 3'),
-  'Player 4':new Player('Player 4')
+  'Player 1':new Player('Player 1', '/images/Weatherlight.jpg'),
+  'Player 2':new Player('Player 2', '/images/Mulrotha-the-Gravetide.jpg'),
+  'Player 3':new Player('Player 3', '/images/Nicol-Bolas-the-Arisen.jpg'),
+  'Player 4':new Player('Player 4', '/images/Adorable-Kitten.jpg')
 }
 
 app.player = player;

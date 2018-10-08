@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>MTG Tower</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/stylesheets/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/stylesheets/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <!-- Scripts  -->
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">MTG Tower</a>
+    </div>
+  </nav>
+
+  <div class="section no-pad-bot">
+    <div class="container">
+
+      <!--   Icon Section   -->
+      <div class="row center">
+        <div id="frontPlayer" class="col s2 offset-s5">
+          <div class="card">
+            <div class="card-image">
+              <img src="">
+              <span class="card-title"></span>
+            </div>
+            <div class="card-action grey darken-2">
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row center">
+        <div id="leftPlayer" class="col s2 offset-s2">
+          <div class="card">
+            <div class="card-image">
+              <img src="">
+              <span class="card-title"></span>
+            </div>
+            <div class="card-action grey darken-2">
+              <p></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="rightPlayer" class="col s2 offset-s4">
+          <div class="card">
+            <div class="card-image">
+              <img src="">
+              <span class="card-title"></span>
+            </div>
+            <div class="card-action grey darken-2">
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row center">
+        <div id="ownPlayer" class="col s2 offset-s5">
+          <div class="card">
+            <div class="card-image">
+              <img src="">
+              <span class="card-title"></span>
+            </div>
+            <div class="card-action grey darken-2">
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--  Scripts-->
+  <script>
+    var socket = io();
+  </script>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/javascripts/materialize.js"></script>
+  <script src="/javascripts/init.js"></script>
+  <script src="/javascripts/startGame.js"></script>
+
+  </body>
+</html>
